@@ -6,7 +6,9 @@ import HomePage from './pages/HomePage'
 import ProductPage from './pages/Product' 
 import ProductDetail from './pages/ProductDetail'
 import ProductManagement from './pages/admin/ProductManagement'
-import { delteProduct, getAllProduct } from './api/product'
+import { delteProduct, getAllProduct, addProduct } from './api/product'
+import ProductAdd from './pages/admin/ProductAdd'
+
 
 
 
@@ -31,17 +33,13 @@ function App() {
     delteProduct(id).then(() => setProducts(products.filter(item => item.id !== id)))
   }
 
+  
+  const onHandleAdd = (product) => {
+    console.log('app.js', product)
+    addProduct(product).then(() => setProducts([...products, { ...product, id: 1 }]))
 
-  // function remove (id){
-  //   fetch(`http://localhost:3000/products/${id}`,{
-  //     method: 'DELETE',
-  //   }).then(() => setProducts(products.filter(item => item.id !== id)));
-    
-  // }
-
-
-
-  // console.log(document.querySelectorAll('.remove'));
+    // setProducts([...products, { ...product, id: 1 }])
+  }
 
 
   return (
@@ -57,6 +55,7 @@ function App() {
         <Route path='/products' element={<ProductPage products={products}  />} />
         <Route path='/products' element={<ProductPage products={products} onRemove={onHandleRemove} />} />
         <Route path='/products/:id' element={<ProductDetail products={products}  />} />
+        <Route path="/admin/product/add" element={<ProductAdd onAdd={onHandleAdd} />} />
         <Route path='/admin/products' element={<ProductManagement   />} />
       </Routes>
 
