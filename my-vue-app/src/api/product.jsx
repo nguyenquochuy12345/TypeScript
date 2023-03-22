@@ -10,8 +10,8 @@ const addProduct = (product) => {
     return instance.post('/products', product)
 }
 
-const updateProduct = (id, product) => {
-    return instance.put('/products/' + id, product)
+const updateProduct = (product) => {
+    return instance.put('/products/' + product.id, product)
 }
 
 

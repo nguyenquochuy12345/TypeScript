@@ -15,7 +15,7 @@ const ProductPage = (props) => {
         }).then(() => setData(data.filter(item => item.id !== id)))
     }
     
-
+    // console.log(data);
     return (
         <div>
             {data.map(item => {

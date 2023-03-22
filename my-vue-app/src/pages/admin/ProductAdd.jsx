@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ProductAdd = ({ onAdd }) => {
-    const [valueInput, setValueInput] = useState({
-        name: "",
-        price: 0
-    });
+    const [valueInput, setValueInput] = useState({});
+
+    // console.log(onAdd);
+    
     const navigate = useNavigate();
     const onHandleChange = (e) => {
+        // e.preventDefault();
         const name = e.target.name;
         const value = e.target.value;
         setValueInput({ ...valueInput, [name]: value })
@@ -19,7 +20,7 @@ const ProductAdd = ({ onAdd }) => {
         //     name: value
         // });
 
-        navigate('/products')
+        navigate('/admin/products')
     }
     
     return (
@@ -141,7 +142,7 @@ const ProductAdd = ({ onAdd }) => {
                                 type="submit"
                                 className="
                                 w-full
-                                text-white
+
                                 bg-primary
                                 rounded
                                 border border-primary
