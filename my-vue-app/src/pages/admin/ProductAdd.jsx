@@ -23,10 +23,7 @@ const ProductAdd = ({ onAdd }) => {
         navigate('/admin/products')
     }
     
-    return (
-      
-
-                
+    return (      
         <section className="bg-white py-20 lg:py-[120px] overflow-hidden relative z-10">
         <div className="container">
             <div className="flex flex-wrap lg:justify-between -mx-4">
@@ -79,25 +76,7 @@ const ProductAdd = ({ onAdd }) => {
                                 "
                                 />
                         </div>
-                        <div className="mb-6">
-                            <input
-                                type="number"
-                                name="price"
-                                onChange={onHandleChange} 
-                                placeholder="Your price"
-                                className="
-                                w-full
-                                rounded
-                                py-3
-                                px-[14px]
-                                text-body-color text-base
-                                border border-[f0f0f0]
-                                outline-none
-                                focus-visible:shadow-none
-                                focus:border-primary
-                                "
-                                />
-                        </div>
+            
                         <div className="mb-6">
                             <input
                                 type="text"
@@ -120,7 +99,7 @@ const ProductAdd = ({ onAdd }) => {
                         <div className="mb-6">
                             <textarea
                                 rows="6"
-                                name="description"
+                                name="desc"
                                 onChange={onHandleChange} 
                                 placeholder="Your Message"
                                 className="

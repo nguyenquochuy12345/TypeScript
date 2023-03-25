@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 
 const ProductManagement = (props) => {
 
@@ -9,13 +9,17 @@ const ProductManagement = (props) => {
 
   }, [props])
 
-  // console.log(data);
-  function removeProduct(id) {
-    // console.log(id);
-    fetch('http://localhost:3000/products/' + id, {
-        method: 'DELETE'
-    }).then(() => setData(data.filter(item => item.id !== id)))
-}
+  const navigate = useNavigate();
+  const onNavigate = (id) => {
+    navigate(`/admin/product/${id}/update`)
+  }
+
+
+
+
+
+  
+
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
@@ -23,7 +27,6 @@ const ProductManagement = (props) => {
         <thead className="bg-gray-50">
           <tr>
             <th scope="col" className="px-6 py-4 font-medium text-gray-900">Name</th>
-            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Price</th>
             <th scope="col" className="px-6 py-4 font-medium text-gray-900">Img</th>
             <th scope="col" className="px-6 py-4 font-medium text-gray-900">Description</th>
             <th scope="col" className="px-6 py-4 font-medium text-gray-900">
@@ -42,20 +45,14 @@ const ProductManagement = (props) => {
                   </div>
 
                 </th>
-                <td className="px-6 py-4">
-                  <span
-                    className="inline-flex items-center gap-1 rounded-full  px-2 py-1 text-xs font-semibold text-green-600"
-                  >
-                    {item.price}
-                  </span>
-                </td>
+      
                 <td className="px-6 py-4">
                   
-                  {item.imge}</td>
+                  <img src={item.image} alt="" /></td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2">
                     <span>
-                      {item.description}
+                      {item.desc}
                     </span>
                   </div>
                 </td>
@@ -64,12 +61,12 @@ const ProductManagement = (props) => {
                     <span
                       className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600"
                     >
-                      <button><a href="/admin/product/add">Delete</a></button>
+                      <button onClick={() => props.onRemove(item.id)}>Delete</button>
                     </span>
                     <span
                       className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
                     >
-                      <button><a href=""></a></button>
+                      <button onClick={() => onNavigate(item.id)}>Update</button>
                     </span>
                   </div>
                 </td>

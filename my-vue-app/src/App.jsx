@@ -14,54 +14,46 @@ import ProductUpdate from './pages/admin/ProductUpdate'
 
 
 function App() {
-  // const [count, setCount] = useState(0)
-  // function handleClick() {
-  //   setCount(count + 1)
-  // }
   const [products, setProducts] = useState([])
   useEffect(() => {
-    // fetch('http://localhost:3000/products')
-    //   .then(response => response.json())
-    //   .then(data => setProducts(data))
+
     getAllProduct().then(({ data }) => setProducts(data))
 
   }, [])
 
+  
+
   const onHandleRemove = (id) => {
-    // fetch('http://localhost:3000/products/' + id, {
-    //   method: 'DELETE'
-    // }).then(() => setProducts(products.filter(item => item.id !== id)))
-    delteProduct(id).then(() => setProducts(products.filter(item => item.id !== id)))
+    const confrim = window.confirm('You want to remove ?');
+    if (confrim) {
+      delteProduct(id).then(() => setProducts(products.filter(item => item.id!== id)))
+    }
   }
 
   
   const onHandleAdd = (product) => {
     console.log('app.js', product)
-    addProduct(product).then(() => setProducts([...products, { ...product, id: 1 }]))
-
-    // setProducts([...products, { ...product, id: 1 }])
+    addProduct(product)
+    .then(() => setProducts([...products, { ...product, id: 1 }])
+    )
+    alert("Them moi thanh cong")
   }
 
   const onHandleUpdate = (newproduct) => {
     console.log('app.js update', newproduct)
      updateProduct(newproduct).then(() => setProducts([...products]))
+     alert("Them moi thanh cong")
+     
   }
 
 
   return (
     <div className="App">
-      
-        {/* 
-        / - Home Page
-        /products - Product Page
-        /products/:id  - Product Detail Page
-      */}
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/products' element={<ProductPage products={products}  />} />
         <Route path='/products' element={<ProductPage products={products} onRemove={onHandleRemove} />} />
-        {/* <Route path='/products/:id' element={<ProductManagement products={products}  />} /> */}
-        <Route path='/admin/products' element={<ProductManagement products={products}  />} />
+        <Route path='/admin/products' element={<ProductManagement products={products} onRemove={onHandleRemove}  onUpdate={onHandleUpdate}   />} />
         <Route path="/admin/product/add" element={<ProductAdd products={products} onAdd={onHandleAdd}  />} />
         <Route path='/admin/product/:id/update' element={<ProductUpdate  products={products}  onUpdate={onHandleUpdate}/>} />
 
