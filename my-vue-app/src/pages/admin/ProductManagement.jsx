@@ -10,6 +10,7 @@ const ProductManagement = (props) => {
   }, [props])
 
   const navigate = useNavigate();
+  
   const onNavigate = (id) => {
     navigate(`/admin/product/${id}/update`)
   }

@@ -25,11 +25,9 @@ const ProductUpdate = ({products , onUpdate}) => {
     const onHandleSubmit = (e) => {
         e.preventDefault()
         const updateData = { ...product, ...inputValue }
-        // onUpdate(updateData);
-        /*
-            id, name, prive
-            id, name, price
-        */
+        
+        
+
         console.log(updateData);
         onUpdate(updateData);
         // updateProduct(updateData).then(() => setProducts)

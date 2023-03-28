@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+interface IProduct {
+    id: number,
+    name: string,
+    price: number
+}
+interface IProps {
 
-const ProductAdd = ({ onAdd }) => {
+    onAdd: (newProduct: IProduct) => void
+}
+const AddProduct = ( {onAdd} :IProps) => {
     const [valueInput, setValueInput] = useState({});
 
-    
     // console.log(onAdd);
     
     const navigate = useNavigate();
-    const onHandleChange = (e) => {
+    const onHandleChange = (e:any) => {
         // e.preventDefault();
         const name = e.target.name;
         const value = e.target.value;
-
-        
-
         setValueInput({ ...valueInput, [name]: value })
     }
-    const onHandleSubmit = (e) => {
+    const onHandleSubmit = (e:any) => {
         e.preventDefault();
-
-        console.log(valueInput); 
-
         onAdd(valueInput)
         // onAdd({
         //     name: value
@@ -105,7 +106,6 @@ const ProductAdd = ({ onAdd }) => {
                         </div>
                         <div className="mb-6">
                             <textarea
-                                rows="6"
                                 name="desc"
                                 onChange={onHandleChange} 
                                 placeholder="Your Message"
@@ -150,4 +150,4 @@ const ProductAdd = ({ onAdd }) => {
     )
 }
 
-export default ProductAdd
+export default AddProduct

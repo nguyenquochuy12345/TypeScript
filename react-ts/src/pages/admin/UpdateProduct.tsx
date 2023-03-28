@@ -1,35 +1,55 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate} from 'react-router-dom'
+// import { updateProduct} from '../../api/product'
 
-const ProductAdd = ({ onAdd }) => {
-    const [valueInput, setValueInput] = useState({});
+interface IProduct {
+    id: number,
+    name: string,
+    desc: string,
+    image: string,
+}
+interface IProps {
+    products: IProduct[],
+    onUpdate: (id: IProduct) => void
+}
 
+const UpdateProduct = ({products , onUpdate} : IProps) => {
+
+    // console.log(onUpdate);
     
-    // console.log(onAdd);
-    
+
+    const { id } = useParams()
+    const [product, setProduct] = useState({})
+    useEffect(() => {
+        const product =     products.find(item => item.id == id)
+        setProduct(product)
+    })
+
     const navigate = useNavigate();
-    const onHandleChange = (e) => {
-        // e.preventDefault();
-        const name = e.target.name;
-        const value = e.target.value;
 
-        
-
-        setValueInput({ ...valueInput, [name]: value })
+    const [inputValue, setInputValue] = useState({})
+    const onHandleChange = (e:any) => {
+        // const name = e.target.name
+        // const value = e.target.value
+        const { name, value } = e.target
+        setInputValue({ ...inputValue, [name]: value })
     }
-    const onHandleSubmit = (e) => {
-        e.preventDefault();
+    const onHandleSubmit = (e:any) => {
+        e.preventDefault()
+        const updateData = { ...product, ...inputValue }
+        // onUpdate(updateData);
+        /*
+            id, name, prive
+            id, name, price
+        */
+        console.log(updateData);
+        onUpdate(updateData);
+        // updateProduct(updateData).then(() => setProducts)
+        navigate('/admin/products');
+    }   
 
-        console.log(valueInput); 
+    // console.log(product);
 
-        onAdd(valueInput)
-        // onAdd({
-        //     name: value
-        // });
-
-        navigate('/admin/products')
-    }
-    
     return (      
         <section className="bg-white py-20 lg:py-[120px] overflow-hidden relative z-10">
         <div className="container">
@@ -69,6 +89,7 @@ const ProductAdd = ({ onAdd }) => {
                                 type="text"
                                 placeholder="Your Name"
                                 name="name"
+                                defaultValue={product?.name}
                                 onChange={onHandleChange} 
                                 className="
                                 w-full
@@ -83,12 +104,13 @@ const ProductAdd = ({ onAdd }) => {
                                 "
                                 />
                         </div>
-            
+          
                         <div className="mb-6">
                             <input
                                 type="text"
                                 name="image"
-                                placeholder="Your Phone"
+                                placeholder="Img"
+                                defaultValue={product?.image}
                                 onChange={onHandleChange} 
                                 className="
                                 w-full
@@ -105,8 +127,8 @@ const ProductAdd = ({ onAdd }) => {
                         </div>
                         <div className="mb-6">
                             <textarea
-                                rows="6"
-                                name="desc"
+                                name="description"  
+                                defaultValue={product?.desc}
                                 onChange={onHandleChange} 
                                 placeholder="Your Message"
                                 className="
@@ -150,4 +172,4 @@ const ProductAdd = ({ onAdd }) => {
     )
 }
 
-export default ProductAdd
+export default UpdateProduct
