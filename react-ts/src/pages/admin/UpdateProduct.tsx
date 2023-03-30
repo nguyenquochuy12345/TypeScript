@@ -19,10 +19,10 @@ const UpdateProduct = ({products , onUpdate} : IProps) => {
     
 
     const { id } = useParams()
-    const [product, setProduct] = useState({})
+    const [product, setProduct] = useState<IProduct>({id:0,name:"",desc:"",image:""})
     useEffect(() => {
-        const product =     products.find(item => item.id == id)
-        setProduct(product)
+        const productUp =     products.find(item => item.id == id)
+        setProduct(productUp)
     })
 
     const navigate = useNavigate();

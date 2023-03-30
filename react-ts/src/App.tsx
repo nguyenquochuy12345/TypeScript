@@ -26,7 +26,7 @@ function App() {
   const [products, setProducts] = useState<IProduct[]>([])
 
   useEffect(() => {
-    getAll().then(({ data }) => setProducts(data))
+    getAll().then(({ data }) => setProducts(data.products))
   }, [])
 
   console.log(products);
@@ -53,6 +53,7 @@ function App() {
 
   const onHandleUpdate = (newproduct:IProduct) => {
     console.log('app.js update', newproduct)
+    
      updateProduct(newproduct).then(() => setProducts([...products]))
      alert("Them moi thanh cong")
      

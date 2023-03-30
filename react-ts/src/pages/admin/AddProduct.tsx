@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 interface IProduct {
     id: number,
     name: string,
-    price: number
+    price: number,
+    desc: string,
 }
 interface IProps {
-
     onAdd: (newProduct: IProduct) => void
 }
 const AddProduct = ( {onAdd} :IProps) => {
-    const [valueInput, setValueInput] = useState({});
+    const [valueInput, setValueInput] = useState<IProduct>({id: 0,name: "",price: 0,desc:""});
 
     // console.log(onAdd);
     

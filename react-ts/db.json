@@ -17,18 +17,6 @@
       "image": "https://picsum.photos/150/150",
       "desc": "xxxxxxxxxxxxxxxxx",
       "id": 4
-    },
-    {
-      "name": "5",
-      "image": "https://picsum.photos/150/150",
-      "desc": "xxxxxxxxxxxxxxxxx",
-      "id": 5
-    },
-    {
-      "name": "1",
-      "image": "1",
-      "desc": "1",
-      "id": 6
     }
   ]
 }

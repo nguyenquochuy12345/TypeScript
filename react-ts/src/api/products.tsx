@@ -23,7 +23,7 @@ export const addProduct = (newProduct:IProduct) => {
 }
 
 export const updateProduct = (newProduct:IProduct) => {
-    return instance.put("/products",  newProduct);
+    return instance.put("/products/" + newProduct.id,  newProduct);
 }
 
 
