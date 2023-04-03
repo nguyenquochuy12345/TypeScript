@@ -1,35 +1,25 @@
 import React, { useState } from 'react';
+import {useForm , SubmitHandler} from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 interface IProduct {
-    id: number,
+    _id: number,
     name: string,
-    price: number,
+    image: string,
     desc: string,
 }
 interface IProps {
-    onAdd: (newProduct: IProduct) => void
+    onAdd: (newProduct: IProduct) => void;
 }
-const AddProduct = ( {onAdd} :IProps) => {
-    const [valueInput, setValueInput] = useState<IProduct>({id: 0,name: "",price: 0,desc:""});
-
-    // console.log(onAdd);
+const AddProduct = ( props :IProps) => {
     
+    const {register , handleSubmit}= useForm<IProduct>();
     const navigate = useNavigate();
-    const onHandleChange = (e:any) => {
-        // e.preventDefault();
-        const name = e.target.name;
-        const value = e.target.value;
-        setValueInput({ ...valueInput, [name]: value })
-    }
-    const onHandleSubmit = (e:any) => {
-        e.preventDefault();
-        onAdd(valueInput)
-        // onAdd({
-        //     name: value
-        // });
 
-        navigate('/admin/products')
+    const onHandleSubmit:SubmitHandler<IProduct> = data => {
+        props.onAdd(data);
+        navigate('/admin/products');
     }
+
     
     return (      
         <section className="bg-white py-20 lg:py-[120px] overflow-hidden relative z-10">
@@ -64,13 +54,12 @@ const AddProduct = ( {onAdd} :IProps) => {
                 </div>
                 <div className="w-full lg:w-1/2 xl:w-5/12 px-4">
                     <div className="bg-white relative rounded-lg p-8 sm:p-12 shadow-lg">
-                    <form onSubmit={onHandleSubmit}>
+                    <form onSubmit={handleSubmit(onHandleSubmit)} >
                         <div className="mb-6">
                             <input
                                 type="text"
                                 placeholder="Your Name"
-                                name="name"
-                                onChange={onHandleChange} 
+                                {...register("name")}
                                 className="
                                 w-full
                                 rounded
@@ -88,9 +77,8 @@ const AddProduct = ( {onAdd} :IProps) => {
                         <div className="mb-6">
                             <input
                                 type="text"
-                                name="image"
                                 placeholder="Your Phone"
-                                onChange={onHandleChange} 
+                                {...register("image")}
                                 className="
                                 w-full
                                 rounded
@@ -106,8 +94,7 @@ const AddProduct = ( {onAdd} :IProps) => {
                         </div>
                         <div className="mb-6">
                             <textarea
-                                name="desc"
-                                onChange={onHandleChange} 
+                                {...register("desc")}
                                 placeholder="Your Message"
                                 className="
                                 w-full

@@ -13,11 +13,13 @@ import Dashboar from './pages/admin/Dashboar'
 import AddProduct from './pages/admin/AddProduct'
 import UpdateProduct from './pages/admin/UpdateProduct'
 import AdminProduct from './pages/admin/AdminProduct'
+import Sign_in from './pages/user/Sign_in'
+import Sign_up from './pages/user/Sign_up'
 
 
 function App() {
   interface IProduct {
-    id: number,
+    _id: number,
     name: string,
     desc: string,
     image: string,
@@ -29,7 +31,7 @@ function App() {
     getAll().then(({ data }) => setProducts(data.products))
   }, [])
 
-  console.log(products);
+  // console.log(products);
 
   
   const onHandleRemove = (id:number) => {
@@ -37,7 +39,7 @@ function App() {
     if (confrim) {
       console.log(id);
       
-      remove(id).then(() => setProducts(products.filter(item => item.id !== id)))
+      remove(id).then(() => setProducts(products.filter(item => item._id !== id)))
     }
   }
 
@@ -46,7 +48,7 @@ function App() {
   const onHandleAdd = (product:IProduct) => {
     console.log('app.js', product)
     addProduct(product)
-    .then(() => setProducts([...products, { ...product, id: 1 }])
+    .then(() => setProducts([...products, { ...product }])
     )
     alert("Them moi thanh cong")
   }
@@ -80,10 +82,18 @@ function App() {
               <Route index element={<Dashboar />} />
               <Route path='products' element={<AdminProduct products={products} onRemove={onHandleRemove}    />} />
               <Route path='product'>
-                <Route path='add' element={<AddProduct products={products} onAdd={onHandleAdd} />} />
+                <Route path='add' element={<AddProduct onAdd={onHandleAdd} />} />
                 <Route path=':id/update' element={<UpdateProduct products={products}  onUpdate={onHandleUpdate} />} />
               </Route>
             </Route>
+
+        {/* Sign-up / Sign-in */}
+            <Route path='/acount' >
+                <Route index element={<Sign_in/>} />
+                <Route path='sign_up' element={<Sign_up/>}/>
+            </Route>
+
+
 
       </Routes>
     </div>

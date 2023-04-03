@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 interface IProduct {
-    id: number,
+    _id: number,
     name: string,
     desc: string,
     image: string,
@@ -19,14 +19,18 @@ const AdminProduct = (props:IProps) => {
     useEffect(() => {
       setData(props.products)
   
-    }, [props])
+    }, [props.products])
 
+      // console.log(data);
+      
 
     const navigate = useNavigate();
     const onNavigate = (id:number) => {
       navigate(`/admin/product/${id}/update`)
     }
 
+      // console.log(data[0]._id);
+      
   
     return (
         <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
@@ -45,21 +49,21 @@ const AdminProduct = (props:IProps) => {
     
               {data.map(item => {
                 return (
-                  <tr key={item.id} className="hover:bg-gray-50">
+                  <tr key={item?._id} className="hover:bg-gray-50">
                     <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                       <div className="relative h-10 ">
-                        <div className="font-medium text-gray-700">{item.name}</div>
+                        <div className="font-medium text-gray-700">{item?.name}</div>
                       </div>
     
                     </th>
           
                     <td className="px-6 py-4">
                       
-                      <img src={item.image} alt="" /></td>
+                      <img src={item?.image} alt="" /></td>
                     <td className="px-6 py-4">
                       <div className="flex gap-2">
                         <span>
-                          {item.desc}
+                          {item?.desc}
                         </span>
                       </div>
                     </td>
@@ -68,12 +72,12 @@ const AdminProduct = (props:IProps) => {
                         <span
                           className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600"
                         >
-                          <button onClick={() => props.onRemove(item.id)}>Delete</button>
+                          <button onClick={() => props.onRemove(item?._id)}>Delete</button>
                         </span>
                         <span
                           className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
                         >
-                          <button onClick={() => onNavigate(item.id)}>Update</button>
+                          <button onClick={() => onNavigate(item?._id)}>Update</button>
                         </span>
                       </div>
                     </td>

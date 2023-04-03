@@ -1,21 +1,22 @@
 import instance from "./instance";
 
 interface IProduct {
-    id: number,
+    _id: number,
     name: string,
-    price: number
+    image: string,
+    desc: string
 }
 
 export const getAll = () => {
     return instance.get("/products");
 }
 
-export const getOne = (id:number) => {
-    return instance.get("/products/" + id);
+export const getOne = (_id:string) => {
+    return instance.get("/product/" + _id);
 }
 
-export const remove = (id:number) => {
-    return instance.delete("/products/"+ id);
+export const remove = (_id:number) => {
+    return instance.delete("/product/"+ _id);
 }
 
 export const addProduct = (newProduct:IProduct) => {
@@ -23,7 +24,7 @@ export const addProduct = (newProduct:IProduct) => {
 }
 
 export const updateProduct = (newProduct:IProduct) => {
-    return instance.put("/products/" + newProduct.id,  newProduct);
+    return instance.patch("/product/" + newProduct._id,  newProduct);
 }
 
 
