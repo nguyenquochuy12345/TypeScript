@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 // import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Button, Checkbox, Form, Input } from 'antd';
-import { IProduct } from '../../types/products';
+import { Button, Form, Input } from 'antd';
+// import { IProduct } from '../../../types/products';
+import { addCategory } from '../../../api/category';
+import { PoweroffOutlined } from '@ant-design/icons';
 
-interface IProps {
-    onAdd: (newProduct: IProduct) => void;
-}
-const AddProduct = (props: IProps) => {
+
+const AddCategory = () => {
 
 
     const navigate = useNavigate();
     const onFinish = (values: any) => {
-        console.log('Success:', values);        
-        props.onAdd(values);
-        navigate('/admin');
+        console.log('Success:', values);
+        addCategory(values);
+
+        navigate('/admin/category');
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -24,6 +25,8 @@ const AddProduct = (props: IProps) => {
 
     return (
         <div>
+            
+
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}
@@ -34,7 +37,7 @@ const AddProduct = (props: IProps) => {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
-             
+
                 <Form.Item
                     label="Product Name"
                     name="name"
@@ -43,34 +46,11 @@ const AddProduct = (props: IProps) => {
                     <Input />
                 </Form.Item>
 
-                <Form.Item
-                    label="Product Name"
-                    name="price"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    label="Product Image"
-                    name="image"
-                    rules={[{ required: true, message: 'Please input your image!' }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    label="Product Desc"
-                    name="desc"
-                    rules={[{ required: true, message: 'Please input your desc!' }]}
-                >
-                    <Input />
-                </Form.Item>
 
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
-                        Add Product
+                        Add Category
                     </Button>
                 </Form.Item>
             </Form>
@@ -78,4 +58,4 @@ const AddProduct = (props: IProps) => {
     )
 }
 
-export default AddProduct
+export default AddCategory

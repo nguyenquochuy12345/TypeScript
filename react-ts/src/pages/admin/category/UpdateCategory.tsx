@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 // import { useForm, SubmitHandler } from 'react-hook-form';
-import { getOne, updateProduct } from '../../api/products';
-import { IProduct } from '../../types/products';
+import { getOneCategory, updateCategory } from '../../../api/category';
+import { ICategory } from '../../../types/category';
 import { Button, Form, Input } from 'antd';
 
+
 interface IProps {
-    products: IProduct[],
+    categorys: ICategory[],
 }
 
 
 
-const UpdateProduct = ( props : IProps) => {
+const UpdateCategory = ( props : IProps) => {
 
     // console.log(onUpdate);
 
@@ -20,38 +21,31 @@ const UpdateProduct = ( props : IProps) => {
 
     const navigate = useNavigate();
 
-    const [product, setProduct] = useState<IProduct>()
+    const [category, setCategory] = useState<ICategory>()
     useEffect(() => {
-        // const productupdate = props.products.find(item => item._id === Number(id))
-        getOne(String(id)).then(({ data }) => setProduct(data))
-        // setProduct(productupdate)
-        // const product = products.find(item => item.id ===)
+        getOneCategory(String(id)).then(({ data }) => setCategory(data))
     }, [props])
 
     useEffect(() => { // khi biến product thay đổi thì sẽ chạy useEffect này
         setFields() // gọi hàm setFields để set lại giá trị cho các input
-    }, [product])
+    }, [category])
 
     const [form] = Form.useForm();
 
     const setFields = () => {
         form.setFieldsValue({
-            _id: product?._id,
-            name: product?.name,
-            image: product?.image,
-            desc: product?.desc
+            _id: category?._id,
+            name: category?.name,
         })
     }
 
     const onFinish = (values: any) => {
-        updateProduct(values).then(() => setProduct(values));
-        navigate('/admin')
-        alert("Update thành công !")
+        updateCategory(values).then(() => setCategory(values));
+        navigate('/admin/category');
     };
 
 
 
-    // console.log(product);
 
     return (
         <div>
@@ -72,33 +66,18 @@ const UpdateProduct = ( props : IProps) => {
 
 
                 <Form.Item
-                    label="Product Name"
+                    label="Category Name"
                     name="name"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[{ required: true, message: 'Please input your category name!' }]}
                 >
                     <Input />
                 </Form.Item>
 
-                <Form.Item
-                    label="Product Image"
-                    name="image"
-                    rules={[{ required: true, message: 'Please input your image!' }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    label="Product Desc"
-                    name="desc"
-                    rules={[{ required: true, message: 'Please input your desc!' }]}
-                >
-                    <Input />
-                </Form.Item>
 
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
-                        Update Product
+                        Update Category
                     </Button>
                 </Form.Item>
             </Form>
@@ -106,4 +85,4 @@ const UpdateProduct = ( props : IProps) => {
     )
 }
 
-export default UpdateProduct
+export default UpdateCategory

@@ -11,7 +11,7 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
-const Forms: React.FC = () => (
+const Sign_in: React.FC = () => (
   <Form
     name="basic"
     labelCol={{ span: 8 }}
@@ -53,4 +53,4 @@ const Forms: React.FC = () => (
   </Form>
 );
 
-export default Forms;
+export default Sign_in;

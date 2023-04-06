@@ -1,8 +1,15 @@
 import React from 'react'
 
+
 const Dashboar = () => {
+
+
+ 
+
   return (
-    <div>Dashboar</div>
+
+
+    <h1>oke</h1>
   )
 }
 
